@@ -147,7 +147,7 @@ h2{font-size:19px;margin:0 0 14px}.sub{color:var(--muted);font-size:13px;margin-
 </div>
 <script>
 const $=id=>document.getElementById(id);
-const fields=['title','group','type','date','openingTime','time','applyStart','applyStartTime','applyEnd','applyEndTime','resultDate','resultTime','paymentDeadline','paymentDeadlineTime','deadline','status','url','place','memo'];
+const fields=['title','group','groupColor','ticketStatus','type','date','openingTime','time','applyStart','applyStartTime','applyEnd','applyEndTime','resultDate','resultTime','paymentDeadline','paymentDeadlineTime','deadline','status','url','place','memo'];
 const types=['ライブ・イベント','グッズ販売','チケット申込','当落発表','入金期限','CD・配信','遠征・宿泊','その他'];
 let events=[];
 try{events=JSON.parse(localStorage.getItem('oshilog-events-v1')||'[]')}catch(e){events=[]}
