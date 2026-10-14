@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#29272b">
+<title>OSHI LOG｜推し活管理</title>
+<style>
+:root{--ink:#29272b;--muted:#77717a;--line:#eee8ed;--pink:#f4dce8;--pink2:#fff3f8;--bg:#fbf9fb;--white:#fff;--red:#b54763;--green:#527c68}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1100px;margin:auto;padding:22px 18px 48px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;display:grid;place-items:center;background:var(--ink);color:#fff;border-radius:14px;font-size:21px}.brand h1{font-size:21px;letter-spacing:.04em;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}.btn{border:0;border-radius:12px;padding:11px 15px;background:var(--ink);color:white;font-weight:650}.btn.light{background:var(--pink2);color:var(--ink);border:1px solid var(--line)}.btn.small{padding:8px 10px;font-size:13px}
+.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:12px;margin-bottom:12px}.tab{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:999px;padding:9px 14px;color:var(--muted)}.tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+h2{font-size:19px;margin:0 0 14px}.sub{color:var(--muted);font-size:13px;margin-top:-7px;margin-bottom:17px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}.stat{background:white;border:1px solid var(--line);border-radius:17px;padding:16px}.stat .label{font-size:12px;color:var(--muted)}.stat .num{font-size:28px;font-weight:750;margin-top:7px}.stat .note{font-size:11px;color:var(--muted);margin-top:4px}
+.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:16px}.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.panel-head h2{margin:0}
+.event{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid #f2edf1}.event:last-child{border-bottom:0;padding-bottom:0}.datebox{width:54px;min-width:54px;height:59px;border-radius:13px;background:var(--pink2);display:flex;flex-direction:column;align-items:center;justify-content:center}.datebox b{font-size:20px;line-height:1.1}.datebox span{font-size:10px;color:var(--muted);margin-top:4px}.event-main{flex:1;min-width:0}.event-title{font-weight:700;overflow-wrap:anywhere}.meta{font-size:12px;color:var(--muted);margin-top:5px;line-height:1.5}.pill{display:inline-block;font-size:11px;border-radius:999px;padding:4px 8px;background:#f3eff3;color:#635a65;margin:6px 4px 0 0}.pill.deadline{background:#fff0f2;color:var(--red)}.pill.done{background:#eaf4ee;color:var(--green)}.event-actions{display:flex;gap:5px;align-items:flex-start}.ticket-section{grid-column:1/-1;background:#fff8fb;border:1px solid #f0dce7;border-radius:12px;padding:12px}.ticket-section h3{margin:0 0 5px;font-size:14px}.ticket-section p{margin:0 0 10px;font-size:12px;color:var(--muted);line-height:1.5}.ticket-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.milestone-list{margin-top:7px;font-size:12px;line-height:1.65;color:#665c66}.milestone-list b{color:#493f49}.iconbtn{border:1px solid var(--line);background:white;border-radius:9px;padding:6px 8px;color:var(--muted)}
+.empty{padding:23px 12px;text-align:center;color:var(--muted);font-size:13px;background:#fcfafc;border-radius:12px}.quicklist{display:flex;flex-direction:column;gap:9px}.quick{padding:12px;background:#fcfafc;border-radius:12px;display:flex;gap:10px;align-items:flex-start}.dot{width:9px;height:9px;border-radius:50%;background:#c98eaa;margin-top:5px;flex:none}.quick b{font-size:13px}.quick small{display:block;color:var(--muted);margin-top:4px;line-height:1.45}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}.field label{font-size:12px;font-weight:700;color:#5f5861}.field input,.field select,.field textarea{width:100%;border:1px solid #e5dfe5;border-radius:10px;padding:11px 12px;background:white;color:var(--ink);outline-color:#c98eaa}.field textarea{min-height:76px;resize:vertical}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.span2{grid-column:1/-1}.formactions{display:flex;gap:8px;flex-wrap:wrap}.hidden{display:none!important}.filterrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.filterrow input,.filterrow select{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 10px;min-width:0}.notice{font-size:12px;line-height:1.6;color:var(--muted);background:#fff7fb;border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.monthlabel{font-weight:750}.calgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.weekday{text-align:center;color:var(--muted);font-size:11px;padding:5px 0}.day{min-height:76px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:6px;overflow:hidden}.day.muted{opacity:.4}.day.today{border:2px solid #c98eaa}.daynum{font-size:12px;font-weight:700}.calitem{display:block;font-size:10px;line-height:1.25;padding:3px 4px;border-radius:5px;background:var(--pink2);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.footer{color:var(--muted);font-size:11px;line-height:1.6;text-align:center;margin-top:24px}
+@media(max-width:720px){.app{padding:16px 12px 34px}.grid{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.stat .num{font-size:24px}.panel{padding:14px}.day{min-height:60px;padding:4px}.calitem{font-size:9px}.event-actions{flex-direction:column}.brand h1{font-size:18px}header .btn{padding:10px 12px}.formgrid{grid-template-columns:1fr}.span2{grid-column:auto}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand"><div class="logo">♡</div><div><h1>OSHI LOG</h1><p>推し活の予定と締切を、ひとつに。</p></div></div>
+ <button class="btn" id="newBtn">＋ 予定を追加</button>
+</header>
+<nav class="tabs">
+ <button class="tab active" data-view="home">ホーム</button>
+ <button class="tab" data-view="calendar">カレンダー</button>
+ <button class="tab" data-view="list">予定一覧</button>
+ <button class="tab" data-view="form">＋ 登録</button>
+</nav>
+<section id="homeView">
+ <div class="stats">
+  <div class="stat"><div class="label">今後の予定</div><div class="num" id="upcomingCount">0</div><div class="note">今日以降</div></div>
+  <div class="stat"><div class="label">7日以内の締切</div><div class="num" id="deadlineCount">0</div><div class="note">申込・入金・販売など</div></div>
+  <div class="stat"><div class="label">次のライブまで</div><div class="num" id="nextLive">—</div><div class="note" id="nextLiveName">ライブを登録しよう</div></div>
+ </div>
+ <div class="grid">
+  <div class="panel"><div class="panel-head"><h2>直近の予定</h2><button class="btn light small" data-goto="list">すべて見る</button></div><div id="homeEvents"></div></div>
+  <div>
+   <div class="panel"><div class="panel-head"><h2>忘れたくない締切</h2></div><div id="homeDeadlines" class="quicklist"></div></div>
+   <div class="panel"><div class="panel-head"><h2>使い方メモ</h2></div><div class="meta">① 予定を追加<br>② 種類・日付・公式URLを登録<br>③ 期限が近づいたらホームで確認<br><br>ライブ当日だけでなく、申込開始日・申込締切・当落・入金期限をそれぞれ別の予定として登録すると、忘れにくくなります。</div></div>
+  </div>
+ </div>
+</section>
+<section id="calendarView" class="hidden">
+ <div class="panel">
+  <div class="calendar-head"><button class="btn light small" id="prevMonth">‹ 前月</button><div class="monthlabel" id="monthLabel"></div><button class="btn light small" id="nextMonth">翌月 ›</button></div>
+  <div class="calgrid" id="calendarGrid"></div>
+  <div class="notice">日付のマスに予定が表示されます。予定を登録する際は、日付と開始時刻を確認してね。</div>
+ </div>
+</section>
+<section id="listView" class="hidden">
+ <div class="panel">
+  <h2>予定一覧</h2><p class="sub">登録した予定を検索・絞り込みできます。</p>
+  <div class="filterrow"><input id="searchInput" placeholder="予定名・推し・メモを検索" aria-label="検索"><select id="typeFilter"><option value="">すべての種類</option><option>ライブ・イベント</option><option>グッズ販売</option><option>チケット申込</option><option>当落発表</option><option>入金期限</option><option>CD・配信</option><option>遠征・宿泊</option><option>その他</option></select><select id="statusFilter"><option value="">すべての状態</option><option value="未対応">未対応</option><option value="対応中">対応中</option><option value="完了">完了</option></select></div>
+  <div id="allEvents"></div>
+ </div>
+</section>
+<section id="formView" class="hidden">
+ <div class="panel">
+  <h2 id="formTitle">予定を登録</h2><p class="sub">わかる項目だけでOK。あとから編集できます。</p>
+  <form id="eventForm">
+   <input type="hidden" id="eventId">
+   <div class="formgrid">
+    <div class="field span2"><label for="title">予定名 *</label><input id="title" required placeholder="例：MAZZEL グッズ販売開始"></div>
+    <div class="field"><label for="group">グループ・推し</label><input id="group" placeholder="例：MAZZEL / NAOYA"></div>
+    <div class="field"><label for="type">種類 *</label><select id="type" required><option>ライブ・イベント</option><option>グッズ販売</option><option>チケット申込</option><option>当落発表</option><option>入金期限</option><option>CD・配信</option><option>遠征・宿泊</option><option>その他</option></select></div>
+    <div class="field"><label for="date">日付 *</label><input id="date" type="date" required></div>
+    <div class="field live-time-field hidden" id="openingTimeField"><label for="openingTime">開場時刻</label><input id="openingTime" type="time"></div>
+    <div class="field" id="startTimeField"><label for="time" id="timeLabel">開始時刻</label><input id="time" type="time"></div>
+    <div class="ticket-section hidden" id="ticketSection">
+     <h3>🎫 チケット関連の日程</h3>
+     <p>このライブに紐づけて申込期間・当落発表・入金期限をまとめて管理できます。わかる日付だけ入力してね。</p>
+     <div class="ticket-grid">
+      <div class="field"><label for="applyStart">申込開始日</label><input id="applyStart" type="date"></div>
+      <div class="field"><label for="applyEnd">申込締切日</label><input id="applyEnd" type="date"></div>
+      <div class="field"><label for="resultDate">当落発表日</label><input id="resultDate" type="date"></div>
+      <div class="field"><label for="paymentDeadline">入金期限</label><input id="paymentDeadline" type="date"></div>
+     </div>
+    </div>
+    <div class="field"><label for="deadline">その他の締切日（任意）</label><input id="deadline" type="date"></div>
+    <div class="field"><label for="status">進捗</label><select id="status"><option>未対応</option><option>対応中</option><option>完了</option></select></div>
+    <div class="field span2"><label for="url">公式サイト・申込ページURL</label><input id="url" type="url" placeholder="https://..."></div>
+    <div class="field span2"><label for="place">会場・場所</label><input id="place" placeholder="会場名、オンラインなど"></div>
+    <div class="field span2"><label for="memo">メモ</label><textarea id="memo" placeholder="申込方法、必要なもの、友達との約束など"></textarea></div>
+   </div>
+   <div class="formactions"><button class="btn" type="submit">保存する</button><button class="btn light hidden" type="button" id="cancelEdit">編集をやめる</button><button class="btn light" type="button" id="resetForm">入力をクリア</button></div>
+  </form>
+  <div class="notice">この試作版は、登録したデータを今使っているブラウザ内に保存します。別の端末・ブラウザとは自動同期されません。大事な予定はスマホのカレンダーにも登録しておくと安心です。</div>
+ </div>
+</section>
+<div class="footer">OSHI LOG — 試作版 v4 / データはこのブラウザ内に保存されます。<br>個人情報・チケット番号・ログイン情報などの機密情報は入力しないでください。</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fields=['title','group','type','date','openingTime','time','applyStart','applyEnd','resultDate','paymentDeadline','deadline','status','url','place','memo'];
+const types=['ライブ・イベント','グッズ販売','チケット申込','当落発表','入金期限','CD・配信','遠征・宿泊','その他'];
+let events=[];
+try{events=JSON.parse(localStorage.getItem('oshilog-events-v1')||'[]')}catch(e){events=[]}
+let currentMonth=new Date(); currentMonth.setDate(1);
+const todayISO=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const save=()=>localStorage.setItem('oshilog-events-v1',JSON.stringify(events));
+const dateObj=s=>s?new Date(s+'T00:00:00'):null;
+const daysUntil=s=>Math.round((dateObj(s)-dateObj(todayISO()))/86400000);
+const dateLabel=s=>{if(!s)return '日付未設定';const d=dateObj(s);return `${d.getMonth()+1}/${d.getDate()}（${'日月火水木金土'[d.getDay()]}）`};
+const sortEvents=a=>[...a].sort((x,y)=>(x.date||'9999').localeCompare(y.date||'9999')||(x.time||'').localeCompare(y.time||''));
+const isLive=e=>e.type==='ライブ・イベント';
+function switchView(view){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===view));['home','calendar','list','form'].forEach(v=>$(v+'View').classList.toggle('hidden',v!==view));if(view==='form'&&!$('eventId').value) $('formTitle').textContent='予定を登録';render();}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.goto)));
+$('newBtn').addEventListener('click',()=>{clearForm();switchView('form')});
+function pillStatus(s){return `<span class="pill ${s==='完了'?'done':''}">${safe(s||'未対応')}</span>`}
+function eventHTML(e){const d=dateObj(e.date);const day=d?d.getDate():'—';const mon=d?`${d.getMonth()+1}月`:'';let pills=`<span class="pill">${safe(e.type)}</span>${e.deadline?`<span class="pill deadline">その他締切 ${safe(dateLabel(e.deadline))}</span>`:''}${pillStatus(e.status)}`;const milestones=[['申込開始',e.applyStart],['申込締切',e.applyEnd],['当落発表',e.resultDate],['入金期限',e.paymentDeadline]].filter(x=>x[1]);const milestoneHTML=milestones.length?`<div class="milestone-list">🎫 <b>チケット日程</b><br>${milestones.map(([label,date])=>`${safe(label)}：${safe(dateLabel(date))}`).join('<br>')}</div>`:'';return `<div class="event"><div class="datebox"><b>${safe(day)}</b><span>${safe(mon)}</span></div><div class="event-main"><div class="event-title">${safe(e.title)}</div><div class="meta">${safe(e.group||'グループ未設定')}${e.type==='ライブ・イベント'&&e.openingTime?' · 開場 '+safe(e.openingTime):''}${e.time?' · '+(e.type==='ライブ・イベント'?'開演 ':'開始 ')+safe(e.time):''}${e.place?' · '+safe(e.place):''}</div><div>${pills}</div>${milestoneHTML}${e.url?`<div class="meta"><a href="${safe(e.url)}" target="_blank" rel="noopener noreferrer">公式ページを開く ↗</a></div>`:''}${e.memo?`<div class="meta">${safe(e.memo).replace(/\n/g,'<br>')}</div>`:''}</div><div class="event-actions"><button class="iconbtn" data-edit="${safe(e.id)}" aria-label="編集">編集</button><button class="iconbtn" data-delete="${safe(e.id)}" aria-label="削除">削除</button></div></div>`}
+function bindEventActions(root){root.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editEvent(b.dataset.edit));root.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteEvent(b.dataset.delete))}
+function labelForDeadline(e,date){if(e.applyStart===date)return '申込開始';if(e.applyEnd===date)return '申込締切';if(e.resultDate===date)return '当落発表';if(e.paymentDeadline===date)return '入金期限';return '締切'}
+function renderHome(){
+ const upcoming=sortEvents(events.filter(e=>e.date>=todayISO()));
+ $('upcomingCount').textContent=upcoming.length;
+ const openDeadlines=events.filter(e=>e.status!=='完了').flatMap(e=>[
+  e.deadline?{e,date:e.deadline,label:'その他締切'}:null,
+  e.applyStart?{e,date:e.applyStart,label:'申込開始'}:null,
+  e.applyEnd?{e,date:e.applyEnd,label:'申込締切'}:null,
+  e.resultDate?{e,date:e.resultDate,label:'当落発表'}:null,
+  e.paymentDeadline?{e,date:e.paymentDeadline,label:'入金期限'}:null
+ ].filter(Boolean)).sort((a,b)=>a.date.localeCompare(b.date));
+ const soon=openDeadlines.filter(x=>daysUntil(x.date)>=0&&daysUntil(x.date)<=7);
+ $('deadlineCount').textContent=soon.length;
+ const live=upcoming.filter(isLive)[0];
+ $('nextLive').textContent=live?`${daysUntil(live.date)}日`:'—';
+ $('nextLiveName').textContent=live?live.title:'ライブを登録しよう';
+ $('homeEvents').innerHTML=upcoming.length?upcoming.slice(0,6).map(eventHTML).join(''):'<div class="empty">まだ予定がありません。右上の「予定を追加」から登録しよう ♡</div>';
+ bindEventActions($('homeEvents'));
+ const urgent=openDeadlines.filter(x=>daysUntil(x.date)<0);
+ const today=openDeadlines.filter(x=>daysUntil(x.date)===0);
+ const upcomingDeadlines=openDeadlines.filter(x=>daysUntil(x.date)>0&&daysUntil(x.date)<=7);
+ const rows=[
+  ...urgent.map(x=>({...x,label:`期限超過：${Math.abs(daysUntil(x.date))}日`,cls:'deadline',rank:0})),
+  ...today.map(x=>({...x,label:'今日',cls:'deadline',rank:1})),
+  ...upcomingDeadlines.map(x=>({...x,label:`あと${daysUntil(x.date)}日`,cls:'',rank:2}))
+ ].sort((a,b)=>a.rank-b.rank||a.date.localeCompare(b.date));
+ $('homeDeadlines').innerHTML=rows.length?rows.slice(0,8).map(({e,date,label,cls,rank})=>`<div class="quick"><span class="dot" style="${cls?'background:#b54763':''}"></span><div><b>${safe(e.title)}</b><small>${safe(e.group||'')} · ${safe(labelForDeadline(e,date))}<br>${safe(dateLabel(date))} <span class="pill ${cls}">${safe(label)}</span></small></div></div>`).join(''):'<div class="empty">未完了の締切はありません。ライブにチケット日程を登録すると、ここにも表示されます ♡</div>';
+}
+function renderList(){let arr=sortEvents(events);const q=$('searchInput').value.toLowerCase().trim(),t=$('typeFilter').value,s=$('statusFilter').value;arr=arr.filter(e=>(!q||[e.title,e.group,e.memo,e.place].join(' ').toLowerCase().includes(q))&&(!t||e.type===t)&&(!s||e.status===s));$('allEvents').innerHTML=arr.length?arr.map(eventHTML).join(''):'<div class="empty">条件に合う予定がありません。</div>';bindEventActions($('allEvents'))}
+function renderCalendar(){const y=currentMonth.getFullYear(),m=currentMonth.getMonth();$('monthLabel').textContent=`${y}年 ${m+1}月`;const first=new Date(y,m,1),offset=first.getDay(),days=new Date(y,m+1,0).getDate(),prevDays=new Date(y,m,0).getDate();let html=['日','月','火','水','木','金','土'].map(x=>`<div class="weekday">${x}</div>`).join('');for(let i=0;i<42;i++){let dayNum,month=m,year=y,muted=false;if(i<offset){dayNum=prevDays-offset+i+1;muted=true;if(m===0){month=11;year=y-1}else month=m-1}else if(i>=offset+days){dayNum=i-offset-days+1;muted=true;if(m===11){month=0;year=y+1}else month=m+1}else dayNum=i-offset+1;const iso=`${year}-${String(month+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;const items=sortEvents(events.filter(e=>e.date===iso));html+=`<div class="day ${muted?'muted':''} ${iso===todayISO()?'today':''}"><div class="daynum">${dayNum}</div>${items.slice(0,2).map(e=>`<span class="calitem" title="${safe(e.title)}">${safe(e.title)}</span>`).join('')}${items.length>2?`<span class="calitem">+${items.length-2}件</span>`:''}</div>`} $('calendarGrid').innerHTML=html}
+function render(){renderHome();renderList();renderCalendar()}
+function updateLiveTimeFields(){const live=$('type').value==='ライブ・イベント';$('openingTimeField').classList.toggle('hidden',!live);$('ticketSection').classList.toggle('hidden',!live);$('timeLabel').textContent=live?'開演時刻':'開始時刻';}
+function clearForm(){ $('eventForm').reset();$('eventId').value='';$('status').value='未対応';$('formTitle').textContent='予定を登録';$('cancelEdit').classList.add('hidden');updateLiveTimeFields();}
+function editEvent(id){const e=events.find(x=>x.id===id);if(!e)return;fields.forEach(f=>$(f).value=e[f]||'');$('eventId').value=e.id;updateLiveTimeFields();$('formTitle').textContent='予定を編集';$('cancelEdit').classList.remove('hidden');switchView('form');window.scrollTo({top:0,behavior:'smooth'})}
+function deleteEvent(id){const e=events.find(x=>x.id===id);if(!e||!confirm(`「${e.title}」を削除しますか？`))return;events=events.filter(x=>x.id!==id);save();render()}
+$('eventForm').addEventListener('submit',ev=>{ev.preventDefault();const id=$('eventId').value;const obj={};fields.forEach(f=>obj[f]=$(f).value.trim());obj.id=id||`${Date.now()}-${Math.random().toString(36).slice(2,8)}`;if(!obj.status)obj.status='未対応';if(id)events=events.map(e=>e.id===id?obj:e);else events.push(obj);save();clearForm();switchView('home')});
+$('cancelEdit').onclick=()=>{clearForm();switchView('list')};$('resetForm').onclick=clearForm;$('type').addEventListener('change',updateLiveTimeFields);updateLiveTimeFields();
+['searchInput','typeFilter','statusFilter'].forEach(id=>$(id).addEventListener(id==='searchInput'?'input':'change',renderList));
+$('prevMonth').onclick=()=>{currentMonth.setMonth(currentMonth.getMonth()-1);renderCalendar()};$('nextMonth').onclick=()=>{currentMonth.setMonth(currentMonth.getMonth()+1);renderCalendar()};
+render();
+</script>
+</body>
+</html>
