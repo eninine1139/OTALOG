@@ -73,14 +73,41 @@ h2{font-size:19px;margin:0 0 14px}.sub{color:var(--muted);font-size:13px;margin-
     <div class="field" id="startTimeField"><label for="time" id="timeLabel">開始時刻</label><input id="time" type="time"></div>
     <div class="ticket-section hidden" id="ticketSection">
      <h3>🎫 チケット関連の日程</h3>
-     <p>このライブに紐づけて申込期間・当落発表・入金期限をまとめて管理できます。わかる日付だけ入力してね。</p>
-     <div class="ticket-grid">
-      <div class="field"><label for="applyStart">申込開始日</label><input id="applyStart" type="date"></div>
-      <div class="field"><label for="applyEnd">申込締切日</label><input id="applyEnd" type="date"></div>
-      <div class="field"><label for="resultDate">当落発表日</label><input id="resultDate" type="date"></div>
-      <div class="field"><label for="paymentDeadline">入金期限</label><input id="paymentDeadline" type="date"></div>
-     </div>
-    </div>
+     <p>このライブに紐づけて申込期間・当落発表・入金期限をまとめて管理できます。わかる日付だけ入力してね。</p>```html
+<div class="ticket-grid">
+  <div class="field">
+    <label for="applyStart">申込開始日</label>
+    <input id="applyStart" type="date">
+  </div>
+  <div class="field">
+    <label for="applyStartTime">申込開始時刻</label>
+    <input id="applyStartTime" type="time">
+  </div>
+  <div class="field">
+    <label for="applyEnd">申込締切日</label>
+    <input id="applyEnd" type="date">
+  </div>
+  <div class="field">
+    <label for="applyEndTime">申込締切時刻</label>
+    <input id="applyEndTime" type="time">
+  </div>
+  <div class="field">
+    <label for="resultDate">当落発表日</label>
+    <input id="resultDate" type="date">
+  </div>
+  <div class="field">
+    <label for="resultTime">当落発表時刻</label>
+    <input id="resultTime" type="time">
+  </div>
+  <div class="field">
+    <label for="paymentDeadline">入金期限日</label>
+    <input id="paymentDeadline" type="date">
+  </div>
+  <div class="field">
+    <label for="paymentDeadlineTime">入金期限時刻</label>
+    <input id="paymentDeadlineTime" type="time">
+  </div>
+</div>
     <div class="field"><label for="deadline">その他の締切日（任意）</label><input id="deadline" type="date"></div>
     <div class="field"><label for="status">進捗</label><select id="status"><option>未対応</option><option>対応中</option><option>完了</option></select></div>
     <div class="field span2"><label for="url">公式サイト・申込ページURL</label><input id="url" type="url" placeholder="https://..."></div>
