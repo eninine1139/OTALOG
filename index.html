@@ -66,7 +66,14 @@ h2{font-size:19px;margin:0 0 14px}.sub{color:var(--muted);font-size:13px;margin-
    <input type="hidden" id="eventId">
    <div class="formgrid">
     <div class="field span2"><label for="title">予定名 *</label><input id="title" required placeholder="例：MAZZEL グッズ販売開始"></div>
-    <div class="field"><label for="group">グループ・推し</label><input id="group" placeholder="例：MAZZEL / NAOYA"></div>
+    <div class="field">
+  <label for="group">グループ・推し</label>
+  <input id="group" placeholder="例：MAZZEL / NAOYA">
+</div>
+<div class="field">
+  <label for="groupColor">グループのテーマカラー</label>
+  <input id="groupColor" type="color" value="#c98eaa">
+</div>
     <div class="field"><label for="type">種類 *</label><select id="type" required><option>ライブ・イベント</option><option>グッズ販売</option><option>チケット申込</option><option>当落発表</option><option>入金期限</option><option>CD・配信</option><option>遠征・宿泊</option><option>その他</option></select></div>
     <div class="field"><label for="date">日付 *</label><input id="date" type="date" required></div>
     <div class="field live-time-field hidden" id="openingTimeField"><label for="openingTime">開場時刻</label><input id="openingTime" type="time"></div>
