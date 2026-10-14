@@ -109,7 +109,24 @@ h2{font-size:19px;margin:0 0 14px}.sub{color:var(--muted);font-size:13px;margin-
   </div>
  </div>
     <div class="field"><label for="deadline">その他の締切日（任意）</label><input id="deadline" type="date"></div>
-    <div class="field"><label for="status">進捗</label><select id="status"><option>未対応</option><option>対応中</option><option>完了</option></select></div>
+    <div class="field">
+  <label for="status">通常の進捗</label>
+  <select id="status">
+    <option>未対応</option>
+    <option>対応中</option>
+    <option>完了</option>
+  </select>
+</div>
+<div class="field">
+  <label for="ticketStatus">🎫 チケット申込状況</label>
+  <select id="ticketStatus">
+    <option value="未申込">未申込</option>
+    <option value="申込済み">申込済み</option>
+    <option value="当選">当選</option>
+    <option value="落選">落選</option>
+    <option value="入金済み">入金済み</option>
+  </select>
+</div>
     <div class="field span2"><label for="url">公式サイト・申込ページURL</label><input id="url" type="url" placeholder="https://..."></div>
     <div class="field span2"><label for="place">会場・場所</label><input id="place" placeholder="会場名、オンラインなど"></div>
     <div class="field span2"><label for="memo">メモ</label><textarea id="memo" placeholder="申込方法、必要なもの、友達との約束など"></textarea></div>
