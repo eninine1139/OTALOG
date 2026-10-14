@@ -173,8 +173,7 @@ function pillStatus(s){
   '入金済み':'background:#f3e8ff;color:#7e22ce',
   '未対応':'',
   '対応中':'',
-  '完了':''
- };
+  '完了':''};
  return `<span class="pill ${s==='完了'?'done':''}" style="${styles[s]||''}">${safe(s||'未対応')}</span>`;
 }
 function eventHTML(e){const d=dateObj(e.date);const day=d?d.getDate():'—';const mon=d?`${d.getMonth()+1}月`:'';let pills=`<span class="pill">${safe(e.type)}</span>${e.deadline?`<span class="pill deadline">その他締切 ${safe(dateLabel(e.deadline))}</span>`:''}${pillStatus(e.status)}`;const milestones=[['申込開始',e.applyStart,e.applyStartTime],['申込締切',e.applyEnd,e.applyEndTime],['当落発表',e.resultDate,e.resultTime],['入金期限',e.paymentDeadline,e.paymentDeadlineTime]].filter(x=>x[1]);const milestoneHTML=milestones.length?`<div class="milestone-list">🎫 <b>チケット日程</b><br>${milestones.map(([label,date,time])=>`${safe(label)}：${safe(dateLabel(date))}${time?' '+safe(time):''}`).join('<br>')}</div>`:'';return `<div class="event"><div class="datebox"><b>${safe(day)}</b><span>${safe(mon)}</span></div><div class="event-main"><div class="event-title">${safe(e.title)}</div><div class="meta">${safe(e.group||'グループ未設定')}${e.type==='ライブ・イベント'&&e.openingTime?' · 開場 '+safe(e.openingTime):''}${e.time?' · '+(e.type==='ライブ・イベント'?'開演 ':'開始 ')+safe(e.time):''}${e.place?' · '+safe(e.place):''}</div><div>${pills}</div>${milestoneHTML}${e.url?`<div class="meta"><a href="${safe(e.url)}" target="_blank" rel="noopener noreferrer">公式ページを開く ↗</a></div>`:''}${e.memo?`<div class="meta">${safe(e.memo).replace(/\n/g,'<br>')}</div>`:''}</div><div class="event-actions"><button class="iconbtn" data-edit="${safe(e.id)}" aria-label="編集">編集</button><button class="iconbtn" data-delete="${safe(e.id)}" aria-label="削除">削除</button></div></div>`}
