@@ -213,7 +213,9 @@ function updateLiveTimeFields(){const live=$('type').value==='ライブ・イベ
 function clearForm(){ $('eventForm').reset();$('eventId').value='';$('status').value='未対応';$('formTitle').textContent='予定を登録';$('cancelEdit').classList.add('hidden');updateLiveTimeFields();$('groupColor').value = '#c98eaa';}
 function editEvent(id){const e=events.find(x=>x.id===id);if(!e)return;fields.forEach(f=>$(f).value=e[f]||'');$('eventId').value=e.id;updateLiveTimeFields();$('formTitle').textContent='予定を編集';$('cancelEdit').classList.remove('hidden');switchView('form');window.scrollTo({top:0,behavior:'smooth'})}
 function deleteEvent(id){const e=events.find(x=>x.id===id);if(!e||!confirm(`「${e.title}」を削除しますか？`))return;events=events.filter(x=>x.id!==id);save();render()}
-$('eventForm').addEventListener('submit',ev=>{ev.preventDefault();const id=$('eventId').value;const obj={};fields.forEach(f=>obj[f]=$(f).value.trim());obj.id=id||`${Date.now()}-${Math.random().toString(36).slice(2,8)}`;if(!obj.status)obj.status='未対応';if(id)events=events.map(e=>e.id===id?obj:e);else events.push(obj);save();clearForm();switchView('home')});
+$('eventForm').addEventListener('submit',ev=>{ev.preventDefault();const id=$('eventId').value;const obj = {};fields.forEach(f => {obj[f] = $(f).value.trim()});
+obj.groupColor = $(‘groupColor’).value;
+obj.ticketStatus = $(‘ticketStatus’).value;obj.id=id||`${Date.now()}-${Math.random().toString(36).slice(2,8)}`;if(!obj.status)obj.status='未対応';if(id)events=events.map(e=>e.id===id?obj:e);else events.push(obj);save();clearForm();switchView('home')});
 $('cancelEdit').onclick=()=>{clearForm();switchView('list')};$('resetForm').onclick=clearForm;$('type').addEventListener('change',updateLiveTimeFields);updateLiveTimeFields();
 ['searchInput','typeFilter','statusFilter'].forEach(id=>$(id).addEventListener(id==='searchInput'?'input':'change',renderList));
 $('prevMonth').onclick=()=>{currentMonth.setMonth(currentMonth.getMonth()-1);renderCalendar()};$('nextMonth').onclick=()=>{currentMonth.setMonth(currentMonth.getMonth()+1);renderCalendar()};
